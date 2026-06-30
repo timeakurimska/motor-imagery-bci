@@ -7,30 +7,31 @@ v Košiciach, 2026).
 Projekt skúma, do akej miery je možné z EEG signálu spoľahlivo rozlíšiť pokoj
 od motorickej imaginácie (a ľavú vs. pravú ruku) na cenovo dostupnom
 spotrebiteľskom zariadení **Neurosity Crown** s ôsmimi suchými elektródami,
-pri prenose modelu medzi rôznymi meraniami (cross-session). Spracovateľský
-reťazec je založený na kovariančných maticiach, nesupervizovanej doménovej
+pri prenose modelu medzi rôznymi meraniami (cross-session). Navrhnutý postup
+spracovania je založený na kovariančných maticiach, nesupervizovanej doménovej
 adaptácii (recentering) a Riemannovskej geometrii.
 
 ## Štruktúra repozitára
 
 ```
 motor-imagery-bci/
-├── data/
-│   └── session_glob/
-│       └── brainwaves_*_T6s.json   # 7 meraní, surový EEG vo formáte JSON
+├── data/                           # sem sa ukladajú nové merania zo zberu dát
+│   └── session_glob/               # 7 meraní použitých v experimentoch
+│       └── brainwaves_*_T6s.json   # surový EEG signál vo formáte JSON
 ├── imgs/
-│   ├── rest.png                   # vizuálne podnety pre zber dát
-│   ├── left.png
-│   └── right.png
-├── record_session.py               # aplikácia na zber dát (tkinter + Neurosity SDK)
-├── mi_pipeline.py                  # spoločné parametre a LOSO logika
+│   ├── rest.png                    # vizuálny podnet – pokoj
+│   ├── left.png                    # vizuálny podnet – MI ľavej ruky
+│   └── right.png                   # vizuálny podnet – MI pravej ruky
+├── .env.example                    # vzor pre prístupové údaje k zariadeniu
+├── .gitignore                      # súbory a priečinky ignorované Gitom
 ├── 01_rest_vs_mi.ipynb             # binárna úloha: pokoj vs. MI
 ├── 02_rest_left_right.ipynb        # trojtriedna úloha: pokoj / ľavá / pravá
 ├── 03_ablacia.ipynb                # ablačná analýza reťazca
-├── requirements.txt                # zoznam Python knižníc
-├── .env.example                    # vzor pre prístupové údaje k zariadeniu
-├── .gitignore
-└── README.md
+├── README.md                       # dokumentácia projektu
+├── crown_handler.py                # pripojenie a stream zo zariadenia Neurosity Crown
+├── mi_pipeline.py                  # spoločné parametre a LOSO logika
+├── record_session.py               # aplikácia na zber dát (tkinter + Neurosity SDK)
+└── requirements.txt                # zoznam Python knižníc
 ```
 
 
@@ -77,7 +78,7 @@ Neurosity). Súbor `.env` je v `.gitignore`, takže sa neodošle na GitHub.
 **Zber dát:**
 
 ```bash
-python zber_dat.py
+python record_session.py
 ```
 
 Spustí sa aplikácia, ktorá zobrazuje vizuálne podnety (pokoj / ľavá / pravá
@@ -100,12 +101,5 @@ a LOSO validácia).
 
 ## Dataset
 
-Adresár `data/` obsahuje vlastný EEG dataset zaznamenaný počas siedmich
-nezávislých meraní v rozpätí dvoch mesiacov (spolu 650 trialov, tri triedy:
-pokoj, MI ľavej a MI pravej ruky) od jedného dobrovoľného subjektu. Dáta sú
-anonymné a slúžia výhradne na výskumné účely; nie sú určené na klinickú
-diagnostiku.
+Adresár `data/session_glob/` obsahuje vlastný EEG dataset zaznamenaný počas siedmich nezávislých meraní v rozpätí dvoch mesiacov (spolu 650 trialov, tri triedy: pokoj, MI ľavej a MI pravej ruky) od jedného dobrovoľného subjektu. Dáta sú anonymné a slúžia výhradne na výskumné účely; nie sú určené na klinickú diagnostiku.
 
-## Licencia
-
-Kód je zverejnený pod licenciou MIT (viď súbor `LICENSE`, ak je priložený).
