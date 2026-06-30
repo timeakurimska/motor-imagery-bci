@@ -1,0 +1,20 @@
+# Prístupové údaje
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Virtuálne prostredia
+.venv/
+venv/
+env/
+
+# Operačný systém / editory
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+
