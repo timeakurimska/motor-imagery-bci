@@ -1,0 +1,19 @@
+# Hlavné knižnice
+mne==1.11.0
+scikit-learn==1.8.0
+pyriemann==0.11
+Pillow==12.0
+
+# Numerika a spracovanie signálu
+numpy
+scipy
+
+# Zber dát z Neurosity Crown
+neurosity
+python-dotenv
+
+# Spúšťanie notebookov
+jupyter
+
+# Pozn.: tkinter nie je na PyPI – je súčasťou štandardného Pythonu.
+# Na Linuxe ho prípadne doinštaluj: sudo apt install python3-tk
